@@ -74,3 +74,6 @@ crashlytics-build.properties
 # IDEs
 *~
 /.vscode/
+
+# Oculus
+/OVRAssetBundles/
