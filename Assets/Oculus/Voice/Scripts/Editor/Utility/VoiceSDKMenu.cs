@@ -18,66 +18,31 @@
  * limitations under the License.
  */
 
+using Meta.Voice.VSDKHub;
 using UnityEngine;
 using UnityEditor;
-using Facebook.WitAi.Windows;
-using Facebook.WitAi.Configuration;
-using Facebook.WitAi.Data.Configuration;
-using Facebook.WitAi.Data.Intents;
-using Facebook.WitAi.Data.Entities;
-using Facebook.WitAi.Data.Traits;
-using Facebook.WitAi.TTS;
-using Facebook.WitAi.TTS.Editor;
-using Facebook.WitAi.TTS.Editor.Preload;
-using Oculus.Voice.Windows;
+using Meta.WitAi.Windows;
+using Meta.WitAi.Data.Entities;
+using Meta.WitAi.TTS;
+using Meta.WitAi.TTS.Preload;
 
 namespace Oculus.Voice.Utility
 {
     public static class VoiceSDKMenu
     {
         #region WINDOWS
-        [MenuItem("Oculus/Voice SDK/Settings", false, 100)]
+        [MenuItem("Oculus/Voice SDK/Get Started", false, 1)]
         private static void OpenConfigurationWindow()
         {
-            WitWindowUtility.OpenConfigurationWindow();
+            WitWindowUtility.OpenGettingStarted((config) =>
+            {
+                VoiceSDKHub.ShowPage(VoiceSDKHub.GetPageId(VoiceHubConstants.PAGE_WIT_CONFIGS));
+            });
         }
-        [MenuItem("Oculus/Voice SDK/Understanding Viewer", false, 100)]
+        [MenuItem("Oculus/Voice SDK/Understanding Viewer", false, 200)]
         private static void OpenUnderstandingWindow()
         {
             WitWindowUtility.OpenUnderstandingWindow();
-        }
-        [MenuItem("Oculus/Voice SDK/About", false, 200)]
-        private static void OpenAboutWindow()
-        {
-            ScriptableWizard.DisplayWizard<AboutWindow>(VoiceSDKStyles.Texts.AboutTitleLabel, VoiceSDKStyles.Texts.AboutCloseLabel);
-        }
-        #endregion
-
-        #region DRAWERS
-        [CustomPropertyDrawer(typeof(WitEndpointConfig))]
-        public class VoiceCustomEndpointPropertyDrawer : WitEndpointConfigDrawer
-        {
-
-        }
-        [CustomPropertyDrawer(typeof(WitApplication))]
-        public class VoiceCustomApplicationPropertyDrawer : VoiceApplicationDetailProvider
-        {
-
-        }
-        [CustomPropertyDrawer(typeof(WitIntent))]
-        public class VoiceCustomIntentPropertyDrawer : WitIntentPropertyDrawer
-        {
-
-        }
-        [CustomPropertyDrawer(typeof(WitEntity))]
-        public class VoiceCustomEntityPropertyDrawer : WitEntityPropertyDrawer
-        {
-
-        }
-        [CustomPropertyDrawer(typeof(WitTrait))]
-        public class VoiceCustomTraitPropertyDrawer : WitTraitPropertyDrawer
-        {
-
         }
         #endregion
 
@@ -106,19 +71,18 @@ namespace Oculus.Voice.Utility
 
         #region TTS
 
-        [MenuItem("GameObject/Voice SDK/TTS/Default TTS Setup", false, 0)]
-        [MenuItem("Assets/Create/Voice SDK/TTS/Add Default TTS Setup", false, 0)]
+        [MenuItem("Assets/Create/Voice SDK/TTS/Add Default TTS Setup")]
         public static void CreateDefaultTTSSetup()
         {
             TTSEditorUtilities.CreateDefaultSetup();
         }
-        [MenuItem("GameObject/Voice SDK/TTS/TTS Service", false, 100)]
+
         [MenuItem("Assets/Create/Voice SDK/TTS/Add TTS Service to Scene", false, 100)]
         public static void CreateTTSService()
         {
             TTSEditorUtilities.CreateService();
         }
-        [MenuItem("GameObject/Voice SDK/TTS/TTS Speaker", false, 100)]
+
         [MenuItem("Assets/Create/Voice SDK/TTS/Add TTS Speaker to Scene", false, 100)]
         public static void CreateTTSSpeaker()
         {
